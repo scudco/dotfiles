@@ -2,15 +2,22 @@
 
 # from http://errtheblog.com/posts/89-huba-huba
 require 'rubygems'
-unless ARGV[0]
+if ARGV[0].nil?
   puts "Here are your configs: #{Dir["*"].join(',')}"
-  puts "usage: ruby #{$0} CONFIG"
+  puts "usage: #{$0} CONFIG [FILE]"
+  puts "want to see what's out there? me too: #{$0} --list"
+  exit
+elsif ARGV[0] == '--list'
+  Dir['*'].each do |config|
+    puts "#{config}:"
+    Dir["#{config}/*"].each {|file| puts "  - #{File.split(file).last}"}
+  end
   exit
 end
 
 home = File.expand_path('~')
 
-Dir["#{ARGV[0]}/*"].each do |file|
+Dir["#{ARGV[0]}/#{ARGV[1]||'*'}"].each do |file|
   target = File.join(home, ".#{File.split(file)[-1]}")
   `ln -f -h -s -i #{File.expand_path file} #{target}` # we need all these options (f and h) in order to prevent looped symlinks for dotdirectories
 end
