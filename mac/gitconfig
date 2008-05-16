@@ -1,0 +1,12 @@
+[color]
+	branch = auto
+	status = auto
+	diff = auto
+	ui = auto
+[user]
+	name = Adam Anderson
+	email = adamandersonis@gmail.com
+[merge]
+	tool = opendiff
+[core]
+	excludesfile = /Users/scudco/.gitignore
