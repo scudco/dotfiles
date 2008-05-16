@@ -39,7 +39,7 @@ chatnets = {
   };
   FreeNode = {
     type = "IRC";
-    autosendcmd = "wait 2000";
+    autosendcmd = "/^msg nickserv identify w000t;wait 2000";
     max_kicks = "4";
     max_msgs = "3";
     max_whois = "1";
