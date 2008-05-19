@@ -1,0 +1,22 @@
+== Description
+I modified the original[http://errtheblog.com/posts/89-huba-huba] to do a bit more. I work in different environments. Linux, Mac, and even Windows. I hate keeping track of all this dotfile nonsense so here is how my install script works.
+
+
+$ ./.install mac
+$ ./.install cygwin
+$ ./.install linux
+$ ./.install mac bashrc
+for help(not much): $ ./.install
+
+Of course, these are all dependent on shell(I use bash) and setup and blah blah blah. But you can take this install script and win at life(computer life only) in any environment. To add a new environment just create a new folder and off you go. 
+
+== Features
+ * multiple environments
+ * install single files
+ * support for config directories(.irssi for example)
+
+== TODO
+  * be less lame
+  * named arguments?(--files=??)
+  * a common folder to guard against duplication(probably need to use named arguments)
+  * named arguments are so frustrating

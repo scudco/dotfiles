@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 # from http://errtheblog.com/posts/89-huba-huba
-require 'rubygems'
+
 if ARGV[0].nil?
   puts "Here are your configs: #{Dir["*"].join(',')}"
   puts "usage: #{$0} CONFIG [FILE]"
