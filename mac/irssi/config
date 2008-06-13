@@ -66,11 +66,9 @@ chatnets = {
 };
 
 channels = (
-  { name = "#irssi"; chatnet = "ircnet"; autojoin = "No"; },
-  { name = "silc"; chatnet = "silc"; autojoin = "No"; },
   { name = "#ruby-lang"; chatnet = "freenode"; autojoin = "Yes"; }
-  { name = "#rubinius"; chatnet = "freenode"; autojoin = "Yes"; }
-  { name = "#github"; chatnet = "freenode"; autojoin = "Yes"; }
+  { name = "#passenger"; chatnet = "freenode"; autojoin = "Yes"; }
+  { name = "#camping"; chatnet = "freenode"; autojoin = "Yes"; }
 );
 
 aliases = {

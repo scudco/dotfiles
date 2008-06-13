@@ -37,3 +37,14 @@ parse_git_branch() {
 export PS1="\n<\[\033[0;32m\]\h\[\033[0m\]:\[\033[0;37m\]\u\[\033[0m\]> \j [\$(date +%m-%d\" \"%H:%M)] \[\033[0;32m\]\$(parse_git_branch)\[\033[0m\]\w \n! "
 
 export PATH=~/bin:/opt/local/bin:/opt/local/sbin:$PATH
+
+gemdoc() {
+  local gemdir=`gem env gemdir`
+  open $gemdir/doc/`ls $gemdir/doc/ | grep $1 | sort | tail -1`/rdoc/index.html
+}
+
+_gemdocomplete() {
+  COMPREPLY=($(compgen -W '$(ls `gem env gemdir`/doc)' -- ${COMP_WORDS[COMP_CWORD]}))
+  return 0
+}
+complete -o default -o nospace -F _gemdocomplete gemdoc

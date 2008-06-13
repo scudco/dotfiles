@@ -122,6 +122,7 @@ alias la='ls -A'                              # all but . and ..
 alias l='ls -CF'                              #
 alias stb='ssh -p 60322 scudco@209.20.65.87'
 alias sstb='screen -t telcobox.net 9 stb'
+alias qlf='qlmanage -p "$@" >& /dev/null'
 
 # Functions
 # #########
