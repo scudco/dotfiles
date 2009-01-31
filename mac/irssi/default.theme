@@ -1,4 +1,3 @@
-# -*- sh -*-
 # When testing changes, the easiest way to reload the theme is with /RELOAD.
 # This reloads the configuration file too, so if you did any changes remember
 # to /SAVE it first. Remember also that /SAVE overwrites the theme file with
@@ -51,9 +50,12 @@
 # default foreground color (%N) - -1 is the "default terminal color"
 default_color = "-1";
 
+# print timestamp/servertag at the end of line, not at beginning
+info_eol = "false";
+
 # these characters are automatically replaced with specified color
 # (dark grey by default)
-replaces = { "[]<>=|," = "%K$*%n"; };
+replaces = { "[]=" = "%K$*%n"; };
 
 abstracts = {
   ##
@@ -61,35 +63,31 @@ abstracts = {
   ##
 
   # text to insert at the beginning of each non-message line
-  # for multi-server support use other line.
-  # line_start = "$[0] %B-|%B-%n";
-  #line_start = "$[11] %B-|%B-%n";
+  line_start = "%B-%W!%B-%n ";
 
-  #line_start = "%B-|%B-%n";
-  line_start = "";
   # timestamp styling, nothing by default
-  timestamp = "%K$*%n";
+  timestamp = "$*";
 
   # any kind of text that needs hilighting, default is to bold
-  hilight = "%y$*%n";
+  hilight = "%_$*%_";
 
   # any kind of error message, default is bright red
   error = "%R$*%n";
 
   # channel name is printed
-  channel = "%y$*%n";
+  channel = "%_$*%_";
 
   # nick is printed
   nick = "%_$*%_";
 
   # nick host is printed
-  nickhost = "$*";
+  nickhost = "[$*]";
 
   # server name is printed
   server = "%_$*%_";
 
   # some kind of comment is printed
-  comment = "; %K$*%n";
+  comment = "[$*]";
 
   # reason for something is printed (part, quit, kick, ..)
   reason = "{comment $*}";
@@ -102,25 +100,25 @@ abstracts = {
   ##
 
   # highlighted nick/host is printed (joins)
-  channick_hilight = "%y$*%n";
-  chanhost_hilight = "{nickhost %K$*%n}";
+  channick_hilight = "%C$*%n";
+  chanhost_hilight = "{nickhost %c$*%n}";
 
   # nick/host is printed (parts, quits, etc.)
-  channick = "%K$*%n";
-  chanhost = "{nickhost %K$*%n}";
+  channick = "%c$*%n";
+  chanhost = "{nickhost $*}";
 
   # highlighted channel name is printed
-  channelhilight = "%y$*%n";
+  channelhilight = "%c$*%n";
 
   # ban/ban exception/invite list mask is printed
-  ban = "%r$*%n";
+  ban = "%c$*%n";
 
   ##
   ## messages
   ##
 
   # the basic styling of how to print message, $0 = nick mode, $1 = nick
-  msgnick = "$0$1-| %|";
+  msgnick = "%K<%n$0$1-%K>%n %|";
 
   # message from you is printed. "msgownnick" specifies the styling of the
   # nick ($0 part in msgnick) and "ownmsgnick" specifies the styling of the
@@ -140,7 +138,7 @@ abstracts = {
 
   # $0 = nick mode, $1 = nick
   ownmsgnick = "{msgnick $0 $1-}";
-  ownnick = "$*";
+  ownnick = "%W$*%n";
 
   # public message in channel, $0 = nick mode, $1 = nick
   pubmsgnick = "{msgnick $0 $1-}";
@@ -155,18 +153,17 @@ abstracts = {
   pubmsghinick = "{msgnick $1 $0$2-%n}";
 
   # channel name is printed with message
-  msgchannel = "%K:$*%n";
+  msgchannel = "%K:%c$*%n";
 
   # private message, $0 = nick, $1 = host
   privmsg = "[%R$0%K(%r$1-%K)%n] ";
 
-  # privmsg = "[%R$0%K%n] ";
   # private message from you, $0 = "msg", $1 = target nick
   ownprivmsg = "[%r$0%K(%R$1-%K)%n] ";
 
   # own private message in query
   ownprivmsgnick = "{msgnick  $*}";
-  ownprivnick = "$*";
+  ownprivnick = "%W$*%n";
 
   # private message in query
   privmsgnick = "{msgnick  %R$*%n}";
@@ -176,7 +173,7 @@ abstracts = {
   ##
 
   # used internally by this theme
-  action_core = "$[12] | %y$*%n";
+  action_core = "%W * $*%n";
 
   # generic one that's used by most actions
   action = "{action_core $*} ";
@@ -185,10 +182,10 @@ abstracts = {
   ownaction = "{action $*}";
 
   # own action with target, both private/public
-  ownaction_target = "{action_core $0}%K:$1%n";
+  ownaction_target = "{action_core $0}%K:%c$1%n ";
 
   # private action sent by others
-  pvtaction = "%W (*) $*%n";
+  pvtaction = "%W (*) $*%n ";
   pvtaction_query = "{action $*}";
 
   # public action sent by others
@@ -200,14 +197,13 @@ abstracts = {
   ##
 
   # whois
-  whois = "%K $[8]0 | $1-";
+  whois = "%# $[8]0 : $1-";
 
   # notices
   ownnotice = "[%r$0%K(%R$1-%K)]%n ";
-  notice = "%K%M$*%K|%n ";
+  notice = "%K-%M$*%K-%n ";
   pubnotice_channel = "%K:%m$*";
-  #pvtnotice_host = "%K(%m$*%K)";
-  pvtnotice_host = "";
+  pvtnotice_host = "%K(%m$*%K)";
   servernotice = "%g!$*%n ";
 
   # CTCPs
@@ -239,6 +235,7 @@ abstracts = {
   # DCC chat, own msg/action
   dccownmsg = "[%r$0%K($1-%K)%n] ";
   dccownnick = "%R$*%n";
+  dccownquerynick = "%W$*%n";
   dccownaction = "{action $*}";
   dccownaction_target = "{action_core $0}%K:%c$1%n ";
 
@@ -253,8 +250,7 @@ abstracts = {
 
   # default background for all statusbars. You can also give
   # the default foreground color for statusbar items.
-  sb_background = "%0%w";
-  # normaly 1
+  sb_background = "%4%w";
 
   # default backround for "default" statusbar group
   #sb_default_bg = "%4";
@@ -272,75 +268,27 @@ abstracts = {
   # used for anything.
   sbend = " ";
 
-  prompt = "$*";
+  topicsbstart = "{sbstart $*}";
+  topicsbend = "{sbend $*}";
 
-  #sb = " %c[%n$*%c]%n";
-  sb = "$*";
+  prompt = "[$*] ";
 
-  sbmode = "%y+%n$*";
-  sbaway = "%GzZzZ%n $*";
+  sb = " %c[%n$*%c]%n";
+  sbmode = "(%c+%n$*)";
+  sbaway = " (%GzZzZ%n)";
   sbservertag = ":$0 (change with ^X)";
+  sbnickmode = "$0";
 
   # activity in statusbar
 
   # ',' separator
-  sb_act_sep = "%y$*";
+  sb_act_sep = "%c$*";
   # normal text
-  sb_act_text = "%y$*";
+  sb_act_text = "%c$*";
   # public message
   sb_act_msg = "%W$*";
   # hilight
-  sb_act_hilight = "%Y$*";
+  sb_act_hilight = "%M$*";
   # hilight with specified color, $0 = color, $1 = text
   sb_act_hilight_color = "$0$1-%n";
-
-  #settings for usercount.pl
-  sb_usercount = "{sb       $1- }";
-  #  sb_uc_ircops = "%_*%_$*";
-  sb_uc_ops = "%K@$*";
-  #  sb_uc_halfops = "%_%%%_$*";
-  sb_uc_voices = "%K+$*";
-  sb_uc_normal = "%K$*";
-  sb_uc_space = " ";
-
-
 };
-
-formats = {
-  "fe-common/core" = {
-    # $0 = my nick, $1 = target nick, $2 = message
-    own_msg = "{ownmsgnick $2 {ownnick $[-9]0}}$1";
-    own_msg_channel = "{ownmsgnick $3 {ownnick $[-9]0}{msgchannel $1}}$2";
-
-    pubmsg_me = "{pubmsgmenick $2 {menick $[-9]0}}$1";
-    pubmsg_me_channel = "{pubmsgmenick $3 {menick $[-9]0}{msgchannel $1}}$2";
-
-    pubmsg_hilight = "{pubmsghinick $0 $3 $[-9]1}$2";
-    pubmsg_hilight_channel = "{pubmsghinick $0 $4 $[-9]1{msgchannel $2}}$3";
-
-    pubmsg = "{pubmsgnick $2 {pubnick \00305$[-9]0}}$1";
-    #0
-    pubmsg_channel = "{pubmsgnick $3 {pubnick $[-9]0}{msgchannel $1}}$2";
-
-    own_msg_private_query = " {ownprivmsgnick {ownprivnick $[-9]2}}$1";
-    msg_private_query = " {privmsgnick $[-9]0}$2";
-    quit = "{channick $[-10]0}| {chanhost $1} %Khas quit from%n {channel $3} {reason $2}";
-    servertag = "            $0";
-    #servertag = "[$[-7]0]";
-    join = "{channick_hilight $[-10]0}| {chanhost_hilight $1} %Khas joined%n {channel $2}";
-    nick_changed = "{channick $[-10]0}| %Kis now known as%n {channick_hilight $1}";
-    part = "{channick $[-10]0}| {chanhost $1} %Khas left%n {channel $2} {reason $3}";
-  };
-
-  "fe-common/irc" = {
-    notice_private = " {notice $[-9]0{pvtnotice_host $1}}$2";
-  };
-  "fe-common/irc/dcc" = {
-    own_dcc_query = " {ownmsgnick {ownnick $[-9]0}}$2";
-    dcc_msg_query = " {privmsgnick $[-9]0}$1";
-  };
-  "fe-text" = {
-    statusbar_list_header = "%y%#Name                           Type   Placement Position Visible";
-  };
-};
-

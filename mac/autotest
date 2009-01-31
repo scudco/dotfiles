@@ -1,24 +1,30 @@
 require 'autotest/redgreen'
 require 'autotest/timestamp'
 
-module Autotest::Growl
+AUTOTEST_IMAGE_PATH = File.join(File.dirname(__FILE__),".autotest_images")
 
-  def self.growl title, msg, img, pri=0, sticky="" 
-    system "growlnotify -n autotest --image #{img} -p #{pri} -m #{msg.inspect} #{title} #{sticky}" 
+module Autotest::Growl
+  def self.growl title, msg, img, pri=0, stick=""
+    system "growlnotify -n autotest --image #{img.inspect} -p #{pri} -m #{msg.inspect} #{title.inspect} #{stick}"
   end
 
-  Autotest.add_hook :ran_command do |at|
-    image_root = "~/.autotest_images"
-    results = [at.results].flatten.join("\n")
-    output = results.slice(/(\d+)\stests,\s(\d+)\sassertions,\s(\d+)\sfailures,\s(\d+)\serrors/)
-    if output
-      if $~[3].to_i > 0 || $~[4].to_i > 0
-		cnt = [(9 + $~[3].to_i + $~[4].to_i) / 10 * 10, 50].min
-        growl "FAIL", "#{output}", "#{image_root}/fail#{cnt}.png", 2
-      else
-        growl "Pass", "#{output}", "#{image_root}/pass.png" 
-      end
+  Autotest.add_hook :ran_command do |autotest|
+    filtered = autotest.results.grep(/\d+\s.*examples?/)
+    output = filtered.empty? ? "" : filtered.last.slice(/(\d+)\s.*examples?,\s(\d+)\s.*failures?(?:,\s(\d+)\s.*pending)?/)
+
+    output,passed,failed,pending = $~.to_a
+
+    if failed.to_i > 0
+      cnt = [(9 + failed.to_i) / 10 * 10, 50].min
+      growl "Test Results", "#{output}", "#{AUTOTEST_IMAGE_PATH}/fail#{cnt}.png"
+    elsif pending.to_i > 0
+      growl "Test Results", "#{output}", "#{AUTOTEST_IMAGE_PATH}/pass.png"
+    else
+      growl "Test Results", "#{output}", "#{AUTOTEST_IMAGE_PATH}/pass.png"
     end
   end
+end
 
+Autotest.add_hook :initialize do |at|
+  %w{.svn .hg .git vendor}.each {|exception| at.add_exception(exception)}
 end

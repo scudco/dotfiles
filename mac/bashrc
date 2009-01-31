@@ -104,6 +104,7 @@ alias grep='grep --color'                     # show differences in colour
 alias c='clear'				      # clear the screen easily
 
 # Git aliases for bash
+alias g='git'
 alias gst='git status'
 alias gl='git pull'
 alias gp='git push'
@@ -122,15 +123,30 @@ alias la='ls -A'                              # all but . and ..
 alias l='ls -CF'                              #
 alias stb='ssh -p 60322 scudco@209.20.65.87'
 alias sstb='screen -t telcobox.net 9 stb'
-alias qlf='qlmanage -p "$@" >& /dev/null'
+alias ql='qlmanage -p "$@" > /dev/null 2>&1'
+alias qlt='qlmanage -p -c public.plain-text "$@" > /dev/null 2>&1'
+alias screen='screen -T xterm-256color'
+alias ss='screen -S'
 
+alias inbox='cd ~/Desktop/inbox'
+
+alias gemi='sudo gem install --no-ri --no-rdoc'
+function gemri() { sudo gem install "$@"; fastri-server --rebuild-index; }
+
+alias rs='rake spec SPEC_OPTS=-c'
+
+alias tlf='twitter timeline --force | less'
 # Functions
 # #########
 
 # Some example functions
 function settitle() { echo -ne "\e]2;$@\a\e]1;$@\a"; }
+parse_git_branch() {
+  git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
+}
 
 bind 'TAB:menu-complete'
-. ~/.bash_profile
 export LSCOLORS=ExFxCxDxBxegedabagacad
-export VISUAL='mate -w'
+export VISUAL='vim'
+export SPEC_OPTS='-c'
+

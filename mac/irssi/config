@@ -66,9 +66,10 @@ chatnets = {
 };
 
 channels = (
-  { name = "#ruby-lang"; chatnet = "freenode"; autojoin = "Yes"; }
-  { name = "#passenger"; chatnet = "freenode"; autojoin = "Yes"; }
-  { name = "#camping"; chatnet = "freenode"; autojoin = "Yes"; }
+  { name = "#ruby-lang"; chatnet = "freenode"; autojoin = "Yes"; },
+  { name = "#taza"; chatnet = "freenode"; autojoin = "Yes"; },
+  { name = "#rspec"; chatnet = "freenode"; autojoin = "Yes"; },
+  { name = "#mises"; chatnet = "freenode"; autojoin = "Yes"; }
 );
 
 aliases = {
@@ -281,7 +282,6 @@ statusbar = {
         window = { };
         window_empty = { };
         lag = { priority = "-1"; };
-        act = { priority = "10"; };
         away = { priority = "-1"; };
         more = { priority = "-1"; };
         mood_bar = { alignment = "right"; priority = "-1"; };
@@ -336,6 +336,13 @@ statusbar = {
       };
     };
     dccstat = { disabled = "yes"; };
+    awl_0 = {
+      items = {
+        barstart = { priority = "100"; };
+        awl_0 = { };
+        barend = { priority = "100"; alignment = "right"; };
+      };
+    };
   };
 };
 
@@ -346,6 +353,8 @@ settings = {
   "perl/core/scripts" = {
     growl_show_privmsg = "yes";
     growl_show_hilight = "yes";
+    awl_display_key = "$Q%K|%n$H$C$S";
+    awl_block = "-15";
   };
 };
 hilights = ( { text = "scudco"; nick = "yes"; word = "yes"; } );
