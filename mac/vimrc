@@ -1,0 +1,36 @@
+set nocompatible
+set hlsearch
+set number
+set sm
+set expandtab
+set incsearch
+set background=dark
+set hidden
+set backspace=indent,eol,start
+set textwidth=0 nosmartindent tabstop=2 shiftwidth=2 softtabstop=2 expandtab
+
+syntax on
+filetype plugin indent on
+autocmd FileType ruby,eruby,io set tw=0 nosi ts=2 sw=2 sts=2 et
+autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
+autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
+autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
+colorscheme vibrantink
+
+let g:gist_clip_command = 'pbcopy'
+map \rb :!ruby %<CR>
+map \rt :!ctags -R -f TAGS --exclude=".git\|.svn\|vendor\|db\|pkg" --extra=+f<CR>
+map \nt :NERDTreeToggle<CR>
+map \ff :FuzzyFinderTaggedFile<CR>
+map \ft :FuzzyFinderTag<CR>
+map \fb :FuzzyFinderBuffer<CR>
+map \nh :nohls<CR>
+map \rd Orequire 'ruby-debug';debugger<Esc>j
+map <silent> \hp :exe ':silent !open %'<CR>
+
+if version >= 600
+    set foldenable
+    set foldmethod=syntax
+    set foldlevel=999
+endif
+
