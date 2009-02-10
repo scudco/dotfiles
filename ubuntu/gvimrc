@@ -1,0 +1,4 @@
+colorscheme vibrantink
+set guifont=Bitstream\ Vera\ Sans\ Mono\ 10.00
+set lines=47
+set columns=155
