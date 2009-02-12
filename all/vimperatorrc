@@ -8,8 +8,7 @@
 source! ~/.vimperatorrc.local
 
 " vim: set ft=vimperator:
-:au LocationChange .* js modes.passAllKeys = /google\.com/.test(buffer.URL)
-:au LocationChange .* js modes.passAllKeys = /(www|mail)\.google\.com/.test(buffer.URL)
+:au LocationChange .* js modes.passAllKeys = /(google|mibbit)\.com/.test(buffer.URL)
 
 :au LocationChange .* :set editor=gvim -f
 :au LocationChange mail\.google\.com :set editor=gvim -f -c 'set ft=mail'
