@@ -3,11 +3,6 @@ defutf8 on
 defflow off
 vbell off
 startup_message off
-#screen -t bash 0
-#screen -t nzb hellanzb.py
-#screen -t irc irssi
-#screen -t irb irb
-#screen -t telcobox.net 9 stb
 caption always "%{= kw}%-w%{= BW}%n %t%{-}%+w %-= @%H - %LD %d %LM - %c"
 escape ``
 
