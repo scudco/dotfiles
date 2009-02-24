@@ -28,8 +28,13 @@ map \ff :FuzzyFinderTaggedFile<CR>
 map \ft :FuzzyFinderTag<CR>
 map \fb :FuzzyFinderBuffer<CR>
 map \nh :nohls<CR>
-map \rd Orequire 'ruby-debug';debugger<Esc>j
+map \rd Orequire 'rubygems';require 'ruby-debug';debugger<Esc>j
 map <silent> \hp :exe ':silent !open %'<CR>
+
+" Visual mode mappings
+vmap // y/<C-R>"<CR>
+
+
 
 if version >= 600
     set foldenable
