@@ -1,12 +1,10 @@
-term xterm
 defutf8 on
 defflow off
 vbell off
 startup_message off
-caption always "%{= kw}%-w%{=b KW}%n %t%{-}%+w %-= %{=b B}@%H%{-} %D %d %M %c %{K}|%{b G} %l"
+caption always "%{= kw}%-w%{=b KW}%n %t%{-}%+w %-= %{=b B}$LOGNAME@%H%{-} %D %d %M%C%a %{K}|%{b G} %l"
 escape ``
 
-# Testing New Stuff
 defscrollback 1000
 bind s split
 bind j focus down
@@ -14,3 +12,10 @@ bind k focus up
 bind = resize =
 bind + resize +1
 bind - resize -1
+
+# Testing New Stuff
+activity "%"
+crlf off
+defmonitor on
+shell -$SHELL
+term $TERM

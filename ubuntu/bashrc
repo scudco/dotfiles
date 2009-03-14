@@ -104,5 +104,5 @@ function pless {
   pygmentize $1 | less -r
 }
 
-export PS1="\n<\[\033[0;32m\]\h\[\033[0m\]:\[\033[0;37m\]\u\[\033[0m\]> \j [\$(date +%m-%d\" \"%H:%M)] \[\033[0;32m\]\$(parse_git_branch)\[\033[0m\]\w \n! "
+export PS1="\n\j \[\033[0;32m\]\$(date +%I:%M%p)\[\033[0m\] \[\033[1;34m\]\$(parse_git_branch)\[\033[0m\]\w \n! "
 
