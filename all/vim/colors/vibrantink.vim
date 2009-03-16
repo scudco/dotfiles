@@ -1,10 +1,8 @@
 " Vim color scheme
 "
 " Name:         vibrantink.vim
-" Maintainer:   Jo Vermeulen <jo.vermeulen@gmail.com> 
-" Last Change:  30 Jul 2007 
-" License:      public domain
-" Version:      1.2
+" Maintainer:   Jo Vermeulen <jo.vermeulen@uhasselt.be>
+" Last Change:  05 Oct 2006
 "
 " This scheme should work in the GUI and in xterm's 256 color mode. It won't
 " work in 8/16 color terminals.
@@ -24,7 +22,7 @@ if exists("syntax_on")
    syntax reset
 endif
 
-let g:colors_name = "vibrantink"
+let colors_name = "vibrantink"
 
 if has("gui_running")
     highlight Normal guifg=White   guibg=Black
@@ -44,8 +42,6 @@ if has("gui_running")
     highlight Statement guifg=#FF6600 gui=NONE
     highlight String guifg=#66FF00
     highlight Search guibg=White
-    highlight CursorLine guibg=#323300
-    highlight LineNr guifg=Gray
 else
     set t_Co=256
     highlight Normal ctermfg=White ctermbg=Black 
@@ -65,5 +61,4 @@ else
     highlight Statement ctermfg=202
     highlight String ctermfg=82 
     highlight Search ctermbg=White 
-    highlight CursorLine cterm=NONE ctermbg=235
 endif

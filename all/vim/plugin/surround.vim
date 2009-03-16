@@ -1,7 +1,7 @@
 " surround.vim - Surroundings
 " Author:       Tim Pope <vimNOSPAM@tpope.info>
 " GetLatestVimScripts: 1697 1 :AutoInstall: surround.vim
-" $Id: surround.vim,v 1.34 2008-02-15 21:43:42 tpope Exp $
+" $Id: surround.vim,v 1.19 2006/11/14 07:16:55 tpope Exp $
 "
 " See surround.txt for help.  This can be accessed by doing
 "
@@ -13,7 +13,7 @@
 " ============================================================================
 
 " Exit quickly when:
-" - this plugin was already loaded or disabled
+" - this plugin was already loaded (or disabled)
 " - when 'compatible' is set
 if (exists("g:loaded_surround") && g:loaded_surround) || &cp
     finish
@@ -111,46 +111,6 @@ function! s:fixindent(str,spc)
     return str
 endfunction
 
-function! s:process(string)
-    let i = 0
-    while i < 7
-        let i = i + 1
-        let repl_{i} = ''
-        let m = matchstr(a:string,nr2char(i).'.\{-\}\ze'.nr2char(i))
-        if m != ''
-            let m = substitute(strpart(m,1),'\r.*','','')
-            let repl_{i} = input(substitute(m,':\s*$','','').': ')
-        endif
-    endwhile
-    let s = ""
-    let i = 0
-    while i < strlen(a:string)
-        let char = strpart(a:string,i,1)
-        if char2nr(char) < 8
-            let next = stridx(a:string,char,i+1)
-            if next == -1
-                let s = s . char
-            else
-                let insertion = repl_{char2nr(char)}
-                let subs = strpart(a:string,i+1,next-i-1)
-                let subs = matchstr(subs,'\r.*')
-                while subs =~ '^\r.*\r'
-                    let sub = matchstr(subs,"^\r\\zs[^\r]*\r[^\r]*")
-                    let subs = strpart(subs,strlen(sub)+1)
-                    let r = stridx(sub,"\r")
-                    let insertion = substitute(insertion,strpart(sub,0,r),strpart(sub,r+1),'')
-                endwhile
-                let s = s . insertion
-                let i = next
-            endif
-        else
-            let s = s . char
-        endif
-        let i = i + 1
-    endwhile
-    return s
-endfunction
-
 function! s:wrap(string,char,type,...)
     let keeper = a:string
     let newchar = a:char
@@ -172,38 +132,27 @@ function! s:wrap(string,char,type,...)
         let extraspace = ' '
     endif
     let idx = stridx(pairs,newchar)
-    if newchar == ' '
-        let before = ''
-        let after  = ''
-    elseif exists("b:surround_".char2nr(newchar))
-        let all    = s:process(b:surround_{char2nr(newchar)})
-        let before = s:extractbefore(all)
-        let after  =  s:extractafter(all)
+    if exists("b:surround_".char2nr(newchar))
+        let before = s:extractbefore(b:surround_{char2nr(newchar)})
+        let after  =  s:extractafter(b:surround_{char2nr(newchar)})
     elseif exists("g:surround_".char2nr(newchar))
-        let all    = s:process(g:surround_{char2nr(newchar)})
-        let before = s:extractbefore(all)
-        let after  =  s:extractafter(all)
+        let before = s:extractbefore(g:surround_{char2nr(newchar)})
+        let after  =  s:extractafter(g:surround_{char2nr(newchar)})
     elseif newchar ==# "p"
         let before = "\n"
         let after  = "\n\n"
     elseif newchar =~# "[tT\<C-T><,]"
-        let dounmapp = 0
+        "let dounmapr = 0
         let dounmapb = 0
-        if !maparg(">","c")
+        "if !mapcheck("<CR>","c")
+            "let dounmapr = 1
+            "cnoremap <CR> ><CR>
+        "endif
+        if !mapcheck(">","c")
             let dounmapb= 1
-            " Hide from AsNeeded
-            exe "cn"."oremap > <CR>"
-            exe "cn"."oremap % %<C-V>"
-            "cm ap > <C-R>=getcmdline() =~ '^[^%?].*[%?]$' ? "\026\076" : "\026\076\015"<CR>
+            cnoremap > ><CR>
         endif
         let default = ""
-        if !maparg("%","c")
-            " This is to help when typing things like
-            " <a href="/images/<%= @image.filename %>">
-            " The downside is it breaks backspace, so lets disable it for now
-            "let dounmapp= 1
-            "exe "cn"."oremap % %<C-V>"
-        endif
         if newchar ==# "T"
             if !exists("s:lastdel")
                 let s:lastdel = ""
@@ -218,17 +167,10 @@ function! s:wrap(string,char,type,...)
         if dounmapb
             silent! cunmap >
         endif
-        if dounmapp
-            silent! cunmap %
-        endif
         if tag != ""
             let tag = substitute(tag,'>*$','','')
-            let before = '<'.tag.'>'
-            if tag =~ '/$'
-                let after = ''
-            else
-                let after  = '</'.substitute(tag,' .*','','').'>'
-            endif
+            let before = "<".tag.">"
+            let after  = "</".substitute(tag," .*",'','').">"
             if newchar == "\<C-T>" || newchar == ","
                 if type ==# "v" || type ==# "V"
                     let before = before . "\n\t"
@@ -269,9 +211,6 @@ function! s:wrap(string,char,type,...)
         let idx = idx / 3 * 3
         let before = strpart(pairs,idx+1,1) . spc
         let after  = spc . strpart(pairs,idx+2,1)
-    elseif newchar == "\<C-[>" || newchar == "\<C-]>"
-        let before = "{\n\t"
-        let after  = "\n}"
     elseif newchar !~ '\a'
         let before = newchar
         let after  = newchar
@@ -290,8 +229,6 @@ function! s:wrap(string,char,type,...)
         endif
         if keeper !~ '\n$' && after !~ '^\n'
             let keeper = keeper . "\n"
-        elseif keeper =~ '\n$' && after =~ '^\n'
-            let after = strpart(after,1)
         endif
         if before !~ '\n\s*$'
             let before = before . "\n"
@@ -349,41 +286,24 @@ function! s:insert(...) " {{{1
         return ""
     endif
     "call inputsave()
-    let cb_save = &clipboard
     let reg_save = @@
     call setreg('"',"\r",'v')
     call s:wrapreg('"',char,linemode)
-    " If line mode is used and the surrounding consists solely of a suffix,
-    " remove the initial newline.  This fits a use case of mine but is a
-    " little inconsistent.  Is there anyone that would prefer the simpler
-    " behavior of just inserting the newline?
-    if linemode && match(getreg('"'),'^\n\s*\zs.*') == 0
-        call setreg('"',matchstr(getreg('"'),'^\n\s*\zs.*'),getregtype('"'))
-    endif
-    " This can be used to append a placeholder to the end
-    if exists("g:surround_insert_tail")
-        call setreg('"',g:surround_insert_tail,"a".getregtype('"'))
-    endif
     "if linemode
         "call setreg('"',substitute(getreg('"'),'^\s\+','',''),'c')
     "endif
-    if col('.') >= col('$')
-        norm! ""p
+    if col('.') > col('$')
+        norm! p`]
     else
-        norm! ""P
+        norm! P`]
     endif
-    if linemode
-        call s:reindent()
-    endif
-    norm! `]
     call search('\r','bW')
     let @@ = reg_save
-    let &clipboard = cb_save
     return "\<Del>"
 endfunction " }}}1
 
 function! s:reindent() " {{{1
-    if exists("b:surround_indent") ? b:surround_indent : (exists("g:surround_indent") && g:surround_indent)
+    if (exists("b:surround_indent") || exists("g:surround_indent"))
         silent norm! '[=']
     endif
 endfunction " }}}1
@@ -413,28 +333,23 @@ function! s:dosurround(...) " {{{1
             return s:beep()
         endif
     endif
-    let cb_save = &clipboard
-    set clipboard-=unnamed
     let append = ""
     let original = getreg('"')
     let otype = getregtype('"')
     call setreg('"',"")
-    let strcount = (scount == 1 ? "" : scount)
-    if char == '/'
-        exe 'norm '.strcount.'[/d'.strcount.']/'
-    else
-        exe 'norm d'.strcount.'i'.char
-    endif
+    exe "norm d".(scount==1 ? "": scount)."i".char
+    "exe "norm vi".char."d"
     let keeper = getreg('"')
     let okeeper = keeper " for reindent below
     if keeper == ""
         call setreg('"',original,otype)
-        let &clipboard = cb_save
         return ""
     endif
     let oldline = getline('.')
     let oldlnum = line('.')
     if char ==# "p"
+        "let append = matchstr(keeper,'\n*\%$')
+        "let keeper = substitute(keeper,'\n*\%$','','')
         call setreg('"','','V')
     elseif char ==# "s" || char ==# "w" || char ==# "W"
         " Do nothing
@@ -442,30 +357,33 @@ function! s:dosurround(...) " {{{1
     elseif char =~ "[\"'`]"
         exe "norm! i \<Esc>d2i".char
         call setreg('"',substitute(getreg('"'),' ','',''))
-    elseif char == '/'
-        norm! "_x
-        call setreg('"','/**/',"c")
-        let keeper = substitute(substitute(keeper,'^/\*\s\=','',''),'\s\=\*$','','')
     else
-        " One character backwards
-        call search('.','bW')
-        exe "norm da".char
+        exe "norm! da".char
     endif
     let removed = getreg('"')
     let rem2 = substitute(removed,'\n.*','','')
     let oldhead = strpart(oldline,0,strlen(oldline)-strlen(rem2))
     let oldtail = strpart(oldline,  strlen(oldline)-strlen(rem2))
     let regtype = getregtype('"')
+    if char == 'p'
+        let regtype = "V"
+    endif
     if char =~# '[\[({<T]' || spc
         let keeper = substitute(keeper,'^\s\+','','')
         let keeper = substitute(keeper,'\s\+$','','')
     endif
     if col("']") == col("$") && col('.') + 1 == col('$')
+        "let keeper = substitute(keeper,'^\n\s*','','')
+        "let keeper = substitute(keeper,'\n\s*$','','')
         if oldhead =~# '^\s*$' && a:0 < 2
+            "let keeper = substitute(keeper,oldhead.'\%$','','')
             let keeper = substitute(keeper,'\%^\n'.oldhead.'\(\s*.\{-\}\)\n\s*\%$','\1','')
         endif
         let pcmd = "p"
     else
+        if oldhead == "" && a:0 < 2
+            "let keeper = substitute(keeper,'\%^\n\(.*\)\n\%$','\1','')
+        endif
         let pcmd = "P"
     endif
     if line('.') < oldlnum && regtype ==# "V"
@@ -475,21 +393,16 @@ function! s:dosurround(...) " {{{1
     if newchar != ""
         call s:wrapreg('"',newchar)
     endif
-    silent exe 'norm! ""'.pcmd.'`['
+    silent exe "norm! ".pcmd.'`['
     if removed =~ '\n' || okeeper =~ '\n' || getreg('"') =~ '\n'
         call s:reindent()
+    else
     endif
     if getline('.') =~ '^\s\+$' && keeper =~ '^\s*\n'
         silent norm! cc
     endif
     call setreg('"',removed,regtype)
     let s:lastdel = removed
-    let &clipboard = cb_save
-    if newchar == ""
-        silent! call repeat#set("\<Plug>Dsurround".char,scount)
-    else
-        silent! call repeat#set("\<Plug>Csurround".char.newchar,scount)
-    endif
 endfunction " }}}1
 
 function! s:changesurround() " {{{1
@@ -512,30 +425,21 @@ function! s:opfunc(type,...) " {{{1
     let reg = '"'
     let sel_save = &selection
     let &selection = "inclusive"
-    let cb_save  = &clipboard
-    set clipboard-=unnamed
     let reg_save = getreg(reg)
     let reg_type = getregtype(reg)
-    "call setreg(reg,"\n","c")
     let type = a:type
     if a:type == "char"
-        silent exe 'norm! v`[o`]"'.reg.'y'
+        silent exe 'norm! v`[o`]"'.reg."y"
         let type = 'v'
     elseif a:type == "line"
-        silent exe 'norm! `[V`]"'.reg.'y'
+        silent exe 'norm! `[V`]"'.reg."y"
         let type = 'V'
     elseif a:type ==# "v" || a:type ==# "V" || a:type ==# "\<C-V>"
-        silent exe 'norm! gv"'.reg.'y'
+        silent exe 'norm! gv"'.reg."y"
     elseif a:type =~ '^\d\+$'
-        let type = 'v'
         silent exe 'norm! ^v'.a:type.'$h"'.reg.'y'
-        if mode() == 'v'
-            norm! v
-            return s:beep()
-        endif
     else
         let &selection = sel_save
-        let &clipboard = cb_save
         return s:beep()
     endif
     let keeper = getreg(reg)
@@ -554,10 +458,6 @@ function! s:opfunc(type,...) " {{{1
     endif
     call setreg(reg,reg_save,reg_type)
     let &selection = sel_save
-    let &clipboard = cb_save
-    if a:type =~ '^\d\+$'
-        silent! call repeat#set("\<Plug>Y".(a:0 ? "S" : "s")."surround".char,a:type)
-    endif
 endfunction
 
 function! s:opfunc2(arg)
@@ -601,20 +501,12 @@ if !exists("g:surround_no_mappings") || ! g:surround_no_mappings
     nmap          ySs  <Plug>YSsurround
     nmap          ySS  <Plug>YSsurround
     if !hasmapto("<Plug>Vsurround","v")
-        if exists(":xmap")
-            xmap  s    <Plug>Vsurround
-        else
-            vmap  s    <Plug>Vsurround
-        endif
+        vmap      s    <Plug>Vsurround
     endif
     if !hasmapto("<Plug>VSurround","v")
-        if exists(":xmap")
-            xmap  S    <Plug>VSurround
-        else
-            vmap  S    <Plug>VSurround
-        endif
+        vmap      S    <Plug>VSurround
     endif
-    if !hasmapto("<Plug>Isurround","i") && "" == mapcheck("<C-S>","i")
+    if !hasmapto("<Plug>Isurround","i") && !mapcheck("<C-S>","i")
         imap     <C-S> <Plug>Isurround
     endif
     imap        <C-G>s <Plug>Isurround

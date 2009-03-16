@@ -2,10 +2,9 @@
 " Name:         vividchalk.vim
 " Author:       Tim Pope <vimNOSPAM@tpope.info>
 " GetLatestVimScripts: 1891 1 :AutoInstall: vividchalk.vim
-" $Id: vividchalk.vim,v 1.8 2007-07-11 18:50:16 tpope Exp $
+" $Id$
 
 " Based on the Vibrank Ink theme for TextMate
-" Distributable under the same terms as Vim itself (see :help license)
 
 if has("gui_running")
     set background=dark
@@ -21,7 +20,7 @@ let colors_name = "vividchalk"
 
 " map a urxvt cube number to an xterm-256 cube number
 fun! s:M(a)
-    return strpart("0245", a:a, 1) + 0
+    return strpart("0135", a:a, 1) + 0
 endfun
 
 " map a urxvt colour to an xterm-256 colour
@@ -45,11 +44,7 @@ fun! s:X(a)
     endif
 endfun
 
-function! E2T(a)
-    return s:X(a:a)
-endfunction
-
-function! s:choose(mediocre,good)
+function! s:choose(good,mediocre)
     if &t_Co != 88 && &t_Co != 256
         return a:mediocre
     else
@@ -57,17 +52,13 @@ function! s:choose(mediocre,good)
     endif
 endfunction
 
-function! s:hifg(group,guifg,first,second,...)
-    if a:0 && &t_Co == 256
-        let ctermfg = a:1
-    else
-        let ctermfg = s:choose(a:first,a:second)
-    endif
+function! s:hifg(group,guifg,ctermfg,backup)
+    let ctermfg = s:choose(a:ctermfg,a:backup)
     exe "highlight ".a:group." guifg=".a:guifg." ctermfg=".ctermfg
 endfunction
 
-function! s:hibg(group,guibg,first,second)
-    let ctermbg = s:choose(a:first,a:second)
+function! s:hibg(group,guibg,ctermbg,backup)
+    let ctermbg = s:choose(a:ctermbg,a:backup)
     exe "highlight ".a:group." guibg=".a:guibg." ctermbg=".ctermbg
 endfunction
 
@@ -90,7 +81,7 @@ hi link javascriptRegexpString  Regexp
 hi link javascriptNumber        Number
 hi link javascriptNull          Constant
 
-call s:hifg("Normal","#EEEEEE","White",87)
+call s:hifg("Normal","#EEEEEE",87,"White")
 if &background == "light" || has("gui_running")
     hi Normal guibg=Black ctermbg=Black
 else
@@ -98,11 +89,6 @@ else
 endif
 highlight StatusLine    guifg=Black   guibg=#aabbee gui=bold ctermfg=Black ctermbg=White  cterm=bold
 highlight StatusLineNC  guifg=#444444 guibg=#aaaaaa gui=none ctermfg=Black ctermbg=Grey   cterm=none
-"if &t_Co == 256
-    "highlight StatusLine ctermbg=117
-"else
-    "highlight StatusLine ctermbg=43
-"endif
 highlight WildMenu      guifg=Black   guibg=#ffff00 gui=bold ctermfg=Black ctermbg=Yellow cterm=bold
 highlight Cursor        guifg=Black guibg=White ctermfg=Black ctermbg=White
 highlight CursorLine    guibg=#333333 guifg=NONE
@@ -112,61 +98,52 @@ highlight SpecialKey    guifg=#404040 ctermfg=8
 highlight Directory     none
 high link Directory     Identifier
 highlight ErrorMsg      guibg=Red ctermbg=DarkRed guifg=NONE ctermfg=NONE
-highlight Search        guifg=NONE ctermfg=NONE gui=none cterm=none
-call s:hibg("Search"    ,"#555555","Black",81)
+highlight Search        guibg=#555555 ctermbg=Black guifg=NONE ctermfg=NONE gui=none cterm=none
 highlight IncSearch     guifg=White guibg=Black ctermfg=White ctermbg=Black
 highlight MoreMsg       guifg=#00AA00 ctermfg=Green
 highlight LineNr        guifg=#DDEEFF ctermfg=White
-call s:hibg("LineNr"    ,"#222222","DarkBlue",80)
+call s:hibg("LineNr"    ,"#222222",80,"DarkBlue")
 highlight Question      none
 high link Question      MoreMsg
 highlight Title         guifg=Magenta ctermfg=Magenta
 highlight VisualNOS     gui=none cterm=none
-call s:hibg("Visual"    ,"#555577","LightBlue",83)
-call s:hibg("VisualNOS" ,"#444444","DarkBlue",81)
+call s:hibg("Visual"    ,"#555577",83,"LightBlue")
+call s:hibg("VisualNOS" ,"#444444",81,"DarkBlue")
 highlight WarningMsg    guifg=Red ctermfg=Red
 highlight Folded        guibg=#1100aa ctermbg=DarkBlue
-call s:hibg("Folded"    ,"#110077","DarkBlue",17)
-call s:hifg("Folded"    ,"#aaddee","LightCyan",63)
+call s:hibg("Folded"    ,"#110077",17,"DarkBlue")
+call s:hifg("Folded"    ,"#aaddee",63,"LightCyan")
 highlight FoldColumn    none
 high link FoldColumn    Folded
 highlight Pmenu         guifg=White ctermfg=White gui=bold cterm=bold
 highlight PmenuSel      guifg=White ctermfg=White gui=bold cterm=bold
-call s:hibg("Pmenu"     ,"#000099","Blue",18)
-call s:hibg("PmenuSel"  ,"#5555ff","DarkCyan",39)
+call s:hibg("Pmenu"     ,"#000099",18,"Blue")
+call s:hibg("PmenuSel"  ,"#5555ff",39,"DarkCyan")
 highlight PmenuSbar     guibg=Grey ctermbg=Grey
 highlight PmenuThumb    guibg=White ctermbg=White
 highlight TabLine       gui=underline cterm=underline
-call s:hifg("TabLine"   ,"#bbbbbb","LightGrey",85)
-call s:hibg("TabLine"   ,"#333333","DarkGrey",80)
+call s:hifg("TabLine"   ,"#bbbbbb",85,"LightGrey")
+call s:hibg("TabLine"   ,"#333333",80,"DarkGrey")
 highlight TabLineSel    guifg=White guibg=Black ctermfg=White ctermbg=Black
 highlight TabLineFill   gui=underline cterm=underline
-call s:hifg("TabLineFill","#bbbbbb","LightGrey",85)
-call s:hibg("TabLineFill","#808080","Grey",83)
+call s:hifg("TabLineFill","#bbbbbb",85,"LightGrey")
+call s:hibg("TabLineFill","#808080",83,"Grey")
 
 hi Type gui=none
+hi railsUserClass gui=italic cterm=underline
 hi Statement gui=none
-if !has("gui_mac")
-    " Mac GUI degrades italics to ugly underlining.
-    hi Comment gui=italic
-    hi railsUserClass  gui=italic
-    hi railsUserMethod gui=italic
-endif
-hi Identifier cterm=none
-" Commented numbers at the end are *old* 256 color values
+hi Comment gui=italic
 "highlight PreProc       guifg=#EDF8F9
-call s:hifg("Comment"        ,"#9933CC","DarkMagenta",34) " 92
-" 26 instead?
-call s:hifg("Constant"       ,"#339999","DarkCyan",21) " 30
-call s:hifg("rubyNumber"     ,"#CCFF33","Yellow",60) " 190
-call s:hifg("String"         ,"#66FF00","LightGreen",44,82) " 82
-call s:hifg("Identifier"     ,"#FFCC00","Yellow",72) " 220
-call s:hifg("Statement"      ,"#FF6600","Brown",68) " 202
-call s:hifg("PreProc"        ,"#AAFFFF","LightCyan",47) " 213
-call s:hifg("railsUserMethod","#AACCFF","LightCyan",27)
-call s:hifg("Type"           ,"#AAAA77","Grey",57) " 101
-call s:hifg("railsUserClass" ,"#AAAAAA","Grey",7) " 101
-call s:hifg("Special"        ,"#33AA00","DarkGreen",24) " 7
-call s:hifg("Regexp"         ,"#44B4CC","DarkCyan",21) " 74
-call s:hifg("rubyMethod"     ,"#DDE93D","Yellow",77) " 191
+call s:hifg("Comment"       ,"#9933CC",51,"DarkMagenta") " 92
+call s:hifg("Constant"      ,"#339999",21,"DarkCyan") " 30
+call s:hifg("rubyNumber"    ,"#CCFF33",60,"Yellow") " 190
+call s:hifg("String"        ,"#66FF00",44,"LightGreen") " 82
+call s:hifg("Identifier"    ,"#FFCC00",72,"Yellow") " 220
+call s:hifg("Statement"     ,"#FF6600",68,"Brown") " 202
+call s:hifg("PreProc"       ,"#AAFFFF",47,"LightCyan") " 213
+call s:hifg("Type"          ,"#AAAA77",57,"Grey") " 101
+call s:hifg("railsUserClass","#AAAAAA",57,"Grey") " 101
+call s:hifg("Special"       ,"#33AA00",24,"DarkGreen") " 7
+call s:hifg("Regexp"        ,"#44B4CC",21,"DarkCyan") " 74
+call s:hifg("rubyMethod"    ,"#DDE93D",77,"Yellow") " 191
 "highlight railsMethod   guifg=#EE1122 ctermfg=1
