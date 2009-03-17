@@ -1,5 +1,8 @@
 require 'autotest/redgreen'
 require 'autotest/timestamp'
+require 'autotest/screen'
+
+Autotest::Screen.statusline = ''
 
 AUTOTEST_IMAGE_PATH = File.join(File.dirname(__FILE__),".autotest_images")
 
