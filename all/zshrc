@@ -1,0 +1,58 @@
+# The following lines were added by compinstall
+
+zstyle ':completion:*' completer _expand _complete _ignored _correct _approximate
+zstyle ':completion:*' list-colors ''
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+zstyle ':completion:*' menu select=0
+zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
+zstyle :compinstall filename '/home/scudco/.zshrc'
+
+autoload -Uz compinit
+compinit
+# End of lines added by compinstall
+# Lines configured by zsh-newuser-install
+HISTFILE=~/.zsh_history
+HISTSIZE=1000
+SAVEHIST=1000
+setopt autocd extendedglob
+bindkey -e
+# End of lines configured by zsh-newuser-install
+
+autoload -U colors && colors
+# get the name of the branch we are on
+git_prompt_info() {
+    ref=$(git symbolic-ref HEAD 2> /dev/null) || return
+      echo "(${ref#refs/heads/})"
+}
+setopt prompt_subst
+PROMPT='
+%(?..[Error %?])%j %{$fg[green]%}%t%{$fg[blue]%} %~ %{$fg[blue]%} %E
+%{$reset_color%}%# '
+RPROMPT='%{$fg_bold[green]%}$(git_prompt_info)%{$reset_color%}'
+
+function title {
+  if [[ $TERM == "screen" ]]; then
+    # Use these two for GNU Screen:
+    print -nR $'\033k'$1$'\033'\\
+    print -nR $'\033]0;'$2$'\a'
+  elif [[ $TERM == "xterm" || $TERM == "rxvt" ]]; then
+    # Use this one instead for XTerms:
+    print -nR $'\033]0;'$*$'\a'
+  fi
+}
+  
+function precmd {
+  title zsh "$PWD"
+}
+    
+function preexec {
+  emulate -L zsh
+  local -a cmd; cmd=(${(z)1})
+  title $cmd[1]:t "$cmd[2,-1]"
+}
+
+#parse_git_branch() {
+#    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
+#}
+#export PS1="\n\j \[\033[0;32m\]\$(date +%I:%M%p)\[\033[0m\] \[\033[1;34m\]\$(parse_git_branch)\[\033[0m\]\w \n! "
+
