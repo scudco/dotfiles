@@ -56,3 +56,26 @@ function preexec {
 #}
 #export PS1="\n\j \[\033[0;32m\]\$(date +%I:%M%p)\[\033[0m\] \[\033[1;34m\]\$(parse_git_branch)\[\033[0m\]\w \n! "
 
+# ALIASES
+alias ls='ls --color=auto'
+
+# some more ls aliases
+alias ll='ls -l'
+alias la='ls -A'
+alias lla='ls -lA'
+alias l='lla -CF'
+alias gvimn='gvim +NERDTree -c "wincmd w"'
+alias vim='vim +NERDTree -c "wincmd w"'
+alias g='git'
+alias tu='tar zxvf'
+
+#gid
+alias gidrd='rdesktop -u cruise -p Build0matic'
+alias ecomvm='ssh root@vm'
+
+#twitter
+alias tl='twitter timeline'
+alias tp='twitter post'
+
+#ruby
+alias speco='spec -c -f specdoc'
