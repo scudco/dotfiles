@@ -68,13 +68,14 @@ alias gvimn='gvim +NERDTree -c "wincmd w"'
 alias vim='vim +NERDTree -c "wincmd w"'
 alias g='git'
 alias tu='tar zxvf'
+alias less='less -r'
 
 #gid
 alias gidrd='rdesktop -u cruise -p Build0matic'
 alias ecomvm='ssh root@vm'
 
 #twitter
-alias tl='twitter timeline'
+alias tl='twitter timeline --color --reverse | less -r'
 alias tp='twitter post'
 
 #ruby
