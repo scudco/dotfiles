@@ -76,6 +76,9 @@
 " Remember last position in file
   au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g'\"" | endif
 
+" Hide buffers instead of abandoning them
+  set hidden
+
 " Make it easy to update/reload .vimrc 
   nmap <leader>s :source ~/.vimrc<CR>
   nmap <leader>v :tabe ~/.vimrc<CR>
