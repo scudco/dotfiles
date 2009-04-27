@@ -1,5 +1,9 @@
   scriptencoding utf-8
 
+  set nocompatible
+  filetype on
+  filetype plugin on
+
 " Change <Leader>
   let mapleader = ","
 
