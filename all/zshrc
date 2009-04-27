@@ -69,6 +69,11 @@ alias vim='vim +NERDTree -c "wincmd w"'
 alias g='git'
 alias tu='tar zxvf'
 alias less='less -r'
+alias screen='screen -T xterm-256color'
+alias ss='screen -S'
+alias screens='ss screens -c ~/.screens'
+alias visor='ss visor -c ~/.visor_screens'
+alias inbox='cd ~/Desktop/inbox'
 
 #gid
 alias gidrd='rdesktop -u cruise -p Build0matic'
@@ -80,3 +85,7 @@ alias tp='twitter post'
 
 #ruby
 alias speco='spec -c -f specdoc'
+alias gemi='sudo gem install --no-ri --no-rdoc'
+
+
+export PATH=~/bin:/opt/local/bin:/opt/local/sbin:/opt/local/libexec/git-core:$PATH
