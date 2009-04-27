@@ -17,5 +17,4 @@ bind - resize -1
 activity "%"
 crlf off
 defmonitor on
-shell -$SHELL
 term $TERM
