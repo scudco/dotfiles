@@ -26,7 +26,7 @@ git_prompt_info() {
 }
 setopt prompt_subst
 PROMPT='
-%(?..[Error %?])%j %{$fg[green]%}%t%{$fg[blue]%} %~ %{$fg[blue]%} %E
+%(?..[%?])%j %{$fg[green]%}%t%{$fg[blue]%} %~ %{$fg[blue]%} %E
 %{$reset_color%}%# '
 RPROMPT='%{$fg_bold[green]%}$(git_prompt_info)%{$reset_color%}'
 
