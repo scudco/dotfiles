@@ -1,6 +1,7 @@
 require 'autotest/redgreen'
 require 'autotest/timestamp'
 require 'autotest/screen'
+require 'autotest/restart'
 
 Autotest::Screen.statusline = ''
 
@@ -26,8 +27,4 @@ module Autotest::Growl
       growl "Test Results", "#{output}", "#{AUTOTEST_IMAGE_PATH}/pass.png"
     end
   end
-end
-
-Autotest.add_hook :initialize do |at|
-  %w{.svn .hg .git vendor}.each {|exception| at.add_exception(exception)}
 end
