@@ -18,4 +18,4 @@ macmenu &File.Open\ Tab\.\.\. key=<nop>
 nnoremap <D-T> :FuzzyFinderTag!<CR> 
 
 " Run file in shell mode with ruby
-nnoremap <D-r> :Shell ruby %<cr>
+"nnoremap <D-r> :Shell ruby %<cr>
