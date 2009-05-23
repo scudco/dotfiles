@@ -14,6 +14,7 @@ let clj_highlight_contrib = 1
 
 let g:gist_clip_command = 'pbcopy'
 map <leader>rd Orequire 'rubygems';require 'ruby-debug';debugger<Esc>j
+map <silent> <leader>rt :!ctags -R --exclude=".git\|.svn\|vendor\|db\|pkg" --extra=+f<CR>
 
 " Visual mode mappings
 vmap // y/<C-R>"<CR>
@@ -23,4 +24,3 @@ if version >= 600
   set foldmethod=syntax
   set foldlevel=999
 endif
-
