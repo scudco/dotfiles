@@ -7,6 +7,11 @@ Autotest::Screen.statusline = ''
 
 AUTOTEST_IMAGE_PATH = File.join(File.dirname(__FILE__),".autotest_images")
 
+Autotest.add_hook :initialize do |at|
+  %w{.svn .hg .git vendor}.each {|exception| at.add_exception(exception)}
+  nil
+end
+
 module Autotest::Growl
   def self.growl title, msg, img, pri=0, stick=""
     system "growlnotify -n autotest --image #{img.inspect} -p #{pri} -m #{msg.inspect} #{title.inspect} #{stick}"
@@ -28,3 +33,4 @@ module Autotest::Growl
     end
   end
 end
+

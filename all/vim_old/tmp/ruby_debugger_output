@@ -1,0 +1,7 @@
+/opt/local/lib/ruby/site_ruby/1.8/rubygems.rb:826:in `report_activate_error': RubyGem version error: ruby-debug-base(0.10.2 not ~> 0.10.3.0) (Gem::LoadError)
+	from /opt/local/lib/ruby/site_ruby/1.8/rubygems.rb:260:in `activate'
+	from /opt/local/lib/ruby/site_ruby/1.8/rubygems.rb:295:in `activate'
+	from /opt/local/lib/ruby/site_ruby/1.8/rubygems.rb:294:in `each'
+	from /opt/local/lib/ruby/site_ruby/1.8/rubygems.rb:294:in `activate'
+	from /opt/local/lib/ruby/site_ruby/1.8/rubygems.rb:67:in `gem'
+	from /opt/local/bin/rdebug-ide:18

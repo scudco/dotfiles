@@ -1,5 +1,5 @@
 --pager
-less
+less -r
 --type-add
 ruby=.haml
 --type-add
