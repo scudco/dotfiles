@@ -3,6 +3,9 @@
 " Enable filetype-specific indenting and plugins
   filetype plugin indent on
 
+" Hide buffers instead of abandoning them
+  set hidden
+
 " Explicitly set 256 color support
   set t_Co=256
 
