@@ -1,0 +1,7 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =5
+let g:netrw_dirhist_1='/Users/scudco/projects/insider_pages/insiderpages'
+let g:netrw_dirhist_2='/Users/scudco/projects/insider_pages/insiderpages/spec'
+let g:netrw_dirhist_3='/Users/scudco/projects/insider_pages/insiderpages/spec/spec_helpers'
+let g:netrw_dirhist_4='/Users/scudco/projects/insider_pages/insiderpages/spec'
+let g:netrw_dirhist_5='/Users/scudco/projects/insider_pages/insiderpages/spec/spec_helpers'

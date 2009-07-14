@@ -1,0 +1,1 @@
+../../../submodules/gist-vim/gist.vim
