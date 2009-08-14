@@ -37,8 +37,8 @@
   vmap <D-[> <<
   imap <D-[> <C-O><<
 
-  set lines=40
-  set columns=136
+  set lines=70
+  set columns=200
   
 
 " bind command-option-l to toggle line numbers

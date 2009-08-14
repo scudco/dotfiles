@@ -71,29 +71,18 @@ alias screens='ss screens -c ~/.screens'
 alias visor='ss visor -c ~/.visor_screens'
 alias inbox='cd ~/Desktop/inbox'
 
-#gid
-alias gidrd='rdesktop -u cruise -p Build0matic'
-alias ecomvm='ssh root@vm'
-
-#twitter
-alias tl='twitter timeline --color --reverse | less -r'
-alias tp='twitter post'
-
 #ruby
 alias speco='spec -O spec/spec.opts'
 alias gemi='sudo gem install --no-ri --no-rdoc'
 
 #insider_pages aliases
 alias ip='cd ~/projects/insider_pages/insiderpages'
-alias ip_ci='ssh adam@cauldron.insiderpages.com'
-alias ip_proteus='ssh -t adam@proteus.insiderpages.com'
-alias ip_clog='ip; echo > log/development.log; tail -f log/development.log'
-alias ip_cs='ssh crucible'
-alias ip_idd='mysql -uroot -e '\''drop database insiderpages_development; create database insiderpages_development'\''; rake db:migrate RAILS_ENV=development --trace; rake spec:db:fixtures:load'
-alias ip_ip='cd $HOME/ip_stats'
-alias ip_itd='mysql -uroot -e '\''drop database insiderpages_test; create database insiderpages_test'\''; rake db:migrate RAILS_ENV=test --trace;'
-alias ip_log='ip; tail -f log/development.log'
-alias ip_qa='ip_proteus ssh app2'
+alias ip_app='ssh -t adam@a'
+alias ip_app1='ip_app ssh -t app1 sudo su - ip'
+alias ip_app2='ip_app ssh -t app2 sudo su - ip'
 alias ip_s='echo > log/development.log; script/server'
-alias ip_spec='ip; script/spec spec/'
-alias ip_stage='ip_proteus ssh app1'
+alias ip_log='ip; tail -f log/development.log'
+alias ip_clog='ip; echo > log/development.log; tail -f log/development.log'
+alias ip_idd='mysql -uroot -e '\''drop database insiderpages_development; create database insiderpages_development'\''; rake db:migrate RAILS_ENV=development --trace; rake spec:db:fixtures:load'
+alias ip_itd='mysql -uroot -e '\''drop database insiderpages_test; create database insiderpages_test'\''; rake db:migrate RAILS_ENV=test --trace; ip_itd2'
+alias ip_itd2='mysql -uroot -e '\''drop database insiderpages_test2; create database insiderpages_test2'\''; rake db:migrate RAILS_ENV=test TEST_ENV_NUMBER=2 --trace;'
