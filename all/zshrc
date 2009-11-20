@@ -52,7 +52,7 @@ function preexec {
   title $cmd[1]:t "$cmd[2,-1]"
 }
 
-export PATH=~/bin:/opt/local/bin:/opt/local/sbin:/opt/local/libexec/git-core:/usr/local/mysql/bin:$PATH
+export PATH=~/bin:/opt/local/bin:/opt/local/sbin:/opt/local/libexec/git-core:/usr/local/mysql/bin:/usr/local/mongodb/bin:$PATH
 
 # ALIASES
 alias ls='ls --color=auto'
@@ -70,6 +70,7 @@ alias ss='screen -S'
 alias screens='ss screens -c ~/.screens'
 alias visor='ss visor -c ~/.visor_screens'
 alias inbox='cd ~/Desktop/inbox'
+alias node-repl="rlwrap node-repl"
 
 #ruby
 alias speco='spec -O spec/spec.opts'
