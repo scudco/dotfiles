@@ -66,9 +66,10 @@ chatnets = {
 };
 
 channels = (
-  { name = "#irssi"; chatnet = "ircnet"; autojoin = "No"; },
-  { name = "silc"; chatnet = "silc"; autojoin = "No"; },
-  { name = "#ruby"; chatnet = "freenode"; autojoin = "Yes"; }
+  { name = "#ruby-lang"; chatnet = "freenode"; autojoin = "Yes"; },
+  { name = "#taza"; chatnet = "freenode"; autojoin = "Yes"; },
+  { name = "#rspec"; chatnet = "freenode"; autojoin = "Yes"; },
+  { name = "#mises"; chatnet = "freenode"; autojoin = "Yes"; }
 );
 
 aliases = {
@@ -119,6 +120,118 @@ aliases = {
   ATAG = "WINDOW SERVER";
 };
 
+# statusbar = {
+#   # formats:
+#   # when using {templates}, the template is shown only if it's argument isn't
+#   # empty unless no argument is given. for example {sb} is printed always,
+#   # but {sb $T} is printed only if $T isn't empty.
+# 
+#   items = {
+#     # start/end text in statusbars
+#     barstart = "{sbstart}";
+#     barend = "{sbend}";
+# 
+#     topicbarstart = "{topicsbstart}";
+#     topicbarend = "{topicsbend}";
+# 
+#     # treated "normally", you could change the time/user name to whatever
+#     time = "{sb $Z}";
+#     user = "{sb {sbnickmode $cumode}$N{sbmode $usermode}{sbaway $A}}";
+# 
+#     # treated specially .. window is printed with non-empty windows,
+#     # window_empty is printed with empty windows
+#     window = "{sb $winref:$tag/$itemname{sbmode $M}}";
+#     window_empty = "{sb $winref{sbservertag $tag}}";
+#     prompt = "{prompt $[.15]itemname}";
+#     prompt_empty = "{prompt $winname}";
+#     topic = " $topic";
+#     topic_empty = " Irssi v$J - http://irssi.org/help/";
+# 
+#     # all of these treated specially, they're only displayed when needed
+#     lag = "{sb Lag: $0-}";
+#     act = "{sb Act: $0-}";
+#     more = "-- more --";
+#   };
+# 
+#   # there's two type of statusbars. root statusbars are either at the top
+#   # of the screen or at the bottom of the screen. window statusbars are at
+#   # the top/bottom of each split window in screen.
+#   default = {
+#     # the "default statusbar" to be displayed at the bottom of the window.
+#     # contains all the normal items.
+#     window = {
+#       disabled = "no";
+# 
+#       # window, root
+#       type = "window";
+#       # top, bottom
+#       placement = "bottom";
+#       # number
+#       position = "1";
+#       # active, inactive, always
+#       visible = "active";
+# 
+#       # list of items in statusbar in the display order
+#       items = {
+#         barstart = { priority = "100"; };
+#         time = { };
+#         user = { };
+#         window = { };
+#         window_empty = { };
+#         lag = { priority = "-1"; };
+#         act = { priority = "10"; };
+#         more = { priority = "-1"; alignment = "right"; };
+#         barend = { priority = "100"; alignment = "right"; };
+#       };
+#     };
+# 
+#     # statusbar to use in inactive split windows
+#     window_inact = {
+#       type = "window";
+#       placement = "bottom";
+#       position = "1";
+#       visible = "inactive";
+#       items = {
+#         barstart = { priority = "100"; };
+#         window = { };
+#         window_empty = { };
+#         more = { priority = "-1"; alignment = "right"; };
+#         barend = { priority = "100"; alignment = "right"; };
+#       };
+#     };
+# 
+#     # we treat input line as yet another statusbar :) It's possible to
+#     # add other items before or after the input line item.
+#     prompt = {
+#       type = "root";
+#       placement = "bottom";
+#       # we want to be at the bottom always
+#       position = "100";
+#       visible = "always";
+#       items = {
+#         prompt = { priority = "-1"; };
+#         prompt_empty = { priority = "-1"; };
+#         # treated specially, this is the real input line.
+#         input = { priority = "10"; };
+#       };
+#     };
+# 
+#     # topicbar
+#     topic = {
+#       type = "root";
+#       placement = "top";
+#       position = "1";
+#       visible = "always";
+#       items = {
+#         topicbarstart = { priority = "100"; };
+#         topic = { };
+#         topic_empty = { };
+#         topicbarend = { priority = "100"; alignment = "right"; };
+#       };
+#     };
+#   };
+# };
+
 statusbar = {
   # formats:
   # when using {templates}, the template is shown only if it's argument isn't
@@ -130,26 +243,23 @@ statusbar = {
     barstart = "{sbstart}";
     barend = "{sbend}";
 
-    topicbarstart = "{topicsbstart}";
-    topicbarend = "{topicsbend}";
-
     # treated "normally", you could change the time/user name to whatever
-    time = "{sb $Z}";
-    user = "{sb {sbnickmode $cumode}$N{sbmode $usermode}{sbaway $A}}";
-
+    time = "{sb %K$Z%n}";
+    user = "           %K|%n";
+    topic = "           %KTopic| %y$topic";
+    #
     # treated specially .. window is printed with non-empty windows,
     # window_empty is printed with empty windows
-    window = "{sb $winref:$tag/$itemname{sbmode $M}}";
-    window_empty = "{sb $winref{sbservertag $tag}}";
-    prompt = "{prompt $[.15]itemname}";
-    prompt_empty = "{prompt $winname}";
-    topic = " $topic";
-    topic_empty = " Irssi v$J - http://irssi.org/help/";
+    window = "{sb  $winref%K:%n$T%K(%n{sbmode $M}%K)%n}";
+    window_empty = "{sb  $winref{sbservertag $tag}}";
+    prompt = "{sbmode $[-4]usermode} {sb $cumode_space$[-9]N%K|%n} ";
+    prompt_empty = "{sbmode $[-4]usermode} {sb $cumode_space$[-9]N%K|%n} ";
 
     # all of these treated specially, they're only displayed when needed
-    lag = "{sb Lag: $0-}";
-    act = "{sb Act: $0-}";
-    more = "-- more --";
+    lag = "   {sb Lag: $0-}";
+    act = "   {sb Act%K:%n $0-}";
+    away = "   {sbaway $A}";
+    more = "   -- more --";
   };
 
   # there's two type of statusbars. root statusbars are either at the top
@@ -159,15 +269,9 @@ statusbar = {
     # the "default statusbar" to be displayed at the bottom of the window.
     # contains all the normal items.
     window = {
-      disabled = "no";
-
-      # window, root
       type = "window";
-      # top, bottom
       placement = "bottom";
-      # number
-      position = "1";
-      # active, inactive, always
+      position = "100";
       visible = "active";
 
       # list of items in statusbar in the display order
@@ -178,8 +282,12 @@ statusbar = {
         window = { };
         window_empty = { };
         lag = { priority = "-1"; };
-        act = { priority = "10"; };
-        more = { priority = "-1"; alignment = "right"; };
+        away = { priority = "-1"; };
+        more = { priority = "-1"; };
+        mood_bar = { alignment = "right"; priority = "-1"; };
+        mail = { alignment = "right"; priority = "-1"; };
+        dccstat = { alignment = "right"; };
+        usercount = { alignment = "right"; };
         barend = { priority = "100"; alignment = "right"; };
       };
     };
@@ -187,7 +295,7 @@ statusbar = {
     # statusbar to use in inactive split windows
     window_inact = {
       type = "window";
-      placement = "bottom";
+      placement = "top";
       position = "1";
       visible = "inactive";
       items = {
@@ -217,19 +325,27 @@ statusbar = {
 
     # topicbar
     topic = {
-      type = "root";
+      type = "window";
       placement = "top";
       position = "1";
-      visible = "always";
+      visible = "never";
       items = {
-        topicbarstart = { priority = "100"; };
+        barstart = { priority = "100"; };
         topic = { };
-        topic_empty = { };
-        topicbarend = { priority = "100"; alignment = "right"; };
+        barend = { priority = "100"; alignment = "right"; };
+      };
+    };
+    dccstat = { disabled = "yes"; };
+    awl_0 = {
+      items = {
+        barstart = { priority = "100"; };
+        awl_0 = { };
+        barend = { priority = "100"; alignment = "right"; };
       };
     };
   };
 };
+
 settings = {
   core = { real_name = "scudco"; user_name = "scudco"; nick = "scudco"; };
   "fe-text" = { actlist_sort = "refnum"; };
@@ -237,6 +353,8 @@ settings = {
   "perl/core/scripts" = {
     growl_show_privmsg = "yes";
     growl_show_hilight = "yes";
+    awl_display_key = "$Q%K|%n$H$C$S";
+    awl_block = "-15";
   };
 };
 hilights = ( { text = "scudco"; nick = "yes"; word = "yes"; } );
