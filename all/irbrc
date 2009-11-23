@@ -1,7 +1,16 @@
 require 'rubygems'
 require 'wirble'
+require 'soma'
+require 'pp'
+
 Wirble.init
 Wirble.colorize
-
-require 'soma'
 Soma.start
+
+if ENV.include?('RAILS_ENV') && !Object.const_defined?('RAILS_DEFAULT_LOGGER')
+  require 'logger'
+  require 'hirb'
+
+  RAILS_DEFAULT_LOGGER = Logger.new(STDOUT)
+  Hirb.enable
+end
