@@ -7,3 +7,6 @@
 [submodule "submodules/vim-fugitive"]
 	path = submodules/vim-fugitive
 	url = git://github.com/tpope/vim-fugitive.git
+[submodule "submodules/vim-javascript"]
+	path = submodules/vim-javascript
+	url = git://github.com/pangloss/vim-javascript.git

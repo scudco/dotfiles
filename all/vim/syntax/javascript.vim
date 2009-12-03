@@ -1,0 +1,1 @@
+../../../submodules/vim-javascript/syntax/javascript.vim
