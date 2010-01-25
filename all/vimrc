@@ -155,3 +155,6 @@
   runtime! fuzzy_finder_config.vim
   runtime! search_config.vim
   runtime! shell.vim
+
+" GetLatestVimScripts
+  let g:GetLatestVimScripts_allowautoinstall=1

@@ -22,3 +22,4 @@ javascript <<EOF
             .insertBefore(feedPanel, document.getElementById("security-button"));
 })();
 EOF
+javascript liberator.beep = function() { return false; }

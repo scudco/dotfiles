@@ -10,3 +10,6 @@
 [submodule "submodules/vim-javascript"]
 	path = submodules/vim-javascript
 	url = git://github.com/pangloss/vim-javascript.git
+[submodule "submodules/vim-rubyredgreen"]
+	path = submodules/vim-rubyredgreen
+	url = git://github.com/reinh/vim-rubyredgreen.git

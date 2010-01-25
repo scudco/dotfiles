@@ -6,3 +6,4 @@ TAGS
 artifacts
 tags
 tmp/*
+db/*.sqlite3

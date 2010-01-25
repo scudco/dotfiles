@@ -1,4 +1,3 @@
-require 'autotest/redgreen'
 require 'autotest/timestamp'
 require 'autotest/screen'
 require 'autotest/restart'

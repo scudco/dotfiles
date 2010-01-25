@@ -1,6 +1,4 @@
 source $HOME/.screenrc
 screen -t bash 0
-screen -t irc irssi
 screen -t ip
 screen -t ip
-screen -t telcobox.net 9 stb
