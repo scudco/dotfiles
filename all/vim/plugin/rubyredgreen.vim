@@ -1,0 +1,1 @@
+../../../submodules/vim-rubyredgreen/plugin/rubyredgreen.vim
