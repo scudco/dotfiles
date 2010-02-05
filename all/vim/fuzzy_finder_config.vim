@@ -1,5 +1,5 @@
 " Fuzzy find files in project a la TextMate
-  nmap <leader>t :FuzzyFinderTextMate<CR> 
+  nmap <leader>t :FuzzyFinderTextMateRefreshFiles<CR>:FuzzyFinderTextMate<CR>
   let g:fuzzy_ignore = "*.png;*.PNG;*.JPG;*.jpg;*.GIF;*.gif;files/**;vendor/**;coverage/**;tmp/**"
   let g:fuzzy_enumerating_limit = 20
   let g:fuzzy_path_display = 'relative_path'
