@@ -18,13 +18,13 @@
 " Syntax Highlighting on
   set nocompatible
   syntax on
-  
+
 " Highlight matching parens
   set showmatch
   "set completeopt=menu,preview
-  
+
 " Use the tab complete menu
-  set wildmenu 
+  set wildmenu
   set wildmode=list:longest,full
 
 " have the mouse enabled all the time:
@@ -38,11 +38,11 @@
 " use indents of 2 spaces, and have them copied down lines:
   set expandtab
   set tabstop=2
-  set softtabstop=2 
+  set softtabstop=2
   set shiftwidth=2
 
   set autoindent
-  
+
 " Set to auto read when a file is changed from the outside
   set autoread
 
@@ -69,11 +69,11 @@
 
 " Remember last position in file
   au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g'\"" | endif
-  
+
 " Tab navigation
   nmap <leader>tn :tabnext<CR>
-  nmap <leader>tp :tabprevious<CR>  
-  nmap <leader>te :tabedit  
+  nmap <leader>tp :tabprevious<CR>
+  nmap <leader>te :tabedit
 
 " Remap F1 from Help to ESC.  No more accidents
   nmap <F1> <Esc>
@@ -90,14 +90,14 @@
 
 " Run file with...
   nmap <leader>st :Shell ruby %<CR>
-  
+
 " Quick, jump out of insert mode while no one is looking
   imap ii <Esc>
 
 " Title: no title for me
   set notitle
 
-" IRB 
+" IRB
   autocmd FileType irb inoremap <buffer> <silent> <CR> <Esc>:<C-u>ruby v=VIM::Buffer.current;v.append(v.line_number, eval(v[v.line_number]).inspect)<CR>
   nnoremap <leader>irb :<C-u>below new<CR>:setfiletype irb<CR>:set syntax=ruby<CR>:set buftype=nofile<CR>:set bufhidden=delete<CR>i
 
@@ -131,15 +131,15 @@
 " toggle Quickfix window with <leader>q
   map <silent> <leader>q :QFix<CR>
 
-" Mappings for align 
+" Mappings for align
   vmap <silent> <Leader>i= <ESC>:AlignPush<CR>:AlignCtrl lp1P1<CR>:'<,'>Align =<CR>:AlignPop<CR>
   vmap <silent> <Leader>i, <ESC>:AlignPush<CR>:AlignCtrl lp0P1<CR>:'<,'>Align ,<CR>:AlignPop<CR>
   vmap <silent> <Leader>i( <ESC>:AlignPush<CR>:AlignCtrl lp0P0<CR>:'<,'>Align (<CR>:AlignPop<CR>
-  
+
 " Remap common rubytest keybindings
   map <Leader>rt <Plug>RubyTestRun
   map <Leader>rf <Plug>RubyFileRun
-  
+
 " Gist.vim
   let g:gist_clip_command = 'pbcopy'
   let g:gist_detect_filetype = 1
@@ -158,3 +158,16 @@
 
 " GetLatestVimScripts
   let g:GetLatestVimScripts_allowautoinstall=1
+
+" Highlight trailing whitespace
+  autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+  autocmd BufRead,InsertLeave * match ExtraWhitespace /\s\+$/
+
+" Set up highlight group & retain through colorscheme changes
+  highlight ExtraWhitespace ctermbg=red guibg=red
+  autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
+
+" Highlight too-long lines
+  autocmd BufRead,InsertEnter,InsertLeave * 2match LineLengthError /\%126v.*/
+  highlight LineLengthError ctermfg=red guifg=red
+  autocmd ColorScheme * highlight LineLengthError ctermfg=red guifg=red
