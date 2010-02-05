@@ -87,3 +87,6 @@ alias ip_clog='ip; echo > log/development.log; tail -f log/development.log'
 alias ip_idd='mysql -uroot -e '\''drop database insiderpages_development; create database insiderpages_development'\''; rake db:migrate RAILS_ENV=development --trace; rake spec:db:fixtures:load'
 alias ip_itd='mysql -uroot -e '\''drop database insiderpages_test; create database insiderpages_test'\''; rake db:migrate RAILS_ENV=test --trace'
 alias ip_itd2='mysql -uroot -e '\''drop database insiderpages_test2; create database insiderpages_test2'\''; rake db:migrate RAILS_ENV=test TEST_ENV_NUMBER=2 --trace;'
+
+#Ruby Version Manager
+if [[ -s /Users/scudco/.rvm/scripts/rvm ]] ; then source /Users/scudco/.rvm/scripts/rvm ; fi
