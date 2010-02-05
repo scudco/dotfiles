@@ -171,3 +171,6 @@
   autocmd BufRead,InsertEnter,InsertLeave * 2match LineLengthError /\%126v.*/
   highlight LineLengthError ctermfg=red guifg=red
   autocmd ColorScheme * highlight LineLengthError ctermfg=red guifg=red
+
+" Fuck whitespace
+  autocmd FileType c,cpp,java,php,ruby,python,html,css,javascript autocmd BufWritePre <buffer> :call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))
