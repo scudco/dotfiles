@@ -173,4 +173,7 @@
   autocmd ColorScheme * highlight LineLengthError ctermfg=red guifg=red
 
 " Fuck whitespace
-  autocmd FileType c,cpp,java,php,ruby,python,html,css,javascript autocmd BufWritePre <buffer> :call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))
+  autocmd FileType c,cpp,java,php,ruby,eruby,python,html,css,javascript autocmd BufWritePre <buffer> :call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))
+
+" Add pathogen dependencies because mixed up stuff is mixed up
+  call pathogen#runtime_append_all_bundles()
