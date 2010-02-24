@@ -69,7 +69,7 @@ alias screen='screen -T xterm-256color'
 alias ss='screen -S'
 alias screens='ss screens -c ~/.screens'
 alias visor='ss visor -c ~/.visor_screens'
-alias inbox='cd ~/Desktop/inbox'
+alias inbox='cd ~/inbox'
 alias node-repl="rlwrap node-repl"
 
 #ruby
