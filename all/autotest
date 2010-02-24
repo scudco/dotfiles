@@ -1,6 +1,8 @@
+require 'autotest/fsevent'
 require 'autotest/timestamp'
 require 'autotest/screen'
 require 'autotest/restart'
+require 'autotest/redgreen'
 
 Autotest::Screen.statusline = ''
 
