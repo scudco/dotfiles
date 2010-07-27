@@ -165,6 +165,7 @@
 
 " Set up highlight group & retain through colorscheme changes
   highlight ExtraWhitespace ctermbg=red guibg=red
+  highlight ExtraLines ctermbg=red guibg=red
   autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
 
 " Highlight too-long lines
@@ -177,3 +178,11 @@
 
 " Add pathogen dependencies because mixed up stuff is mixed up
   call pathogen#runtime_append_all_bundles()
+
+  nnoremap <Leader>ff :FuzzyFinderTextMateRefreshFiles<CR>:FuzzyFinderTextMate<CR>
+  nnoremap <Leader>rl :%s/^\n\+/\r/<CR>:nohls<CR>
+
+" from thoughtbot, thanks, guys!
+  vmap D y'>p
+
+  autocmd BufRead *.markdown,*.md,*.mdown,*.mkd,*.mkdn set ai formatoptions=tcroqn2 comments=n:>
