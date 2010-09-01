@@ -13,3 +13,6 @@
 [submodule "submodules/vim-rubyredgreen"]
 	path = submodules/vim-rubyredgreen
 	url = git://github.com/reinh/vim-rubyredgreen.git
+[submodule "submodules/histwin.vim"]
+	path = submodules/histwin.vim
+	url = http://github.com/chrisbra/histwin.vim.git

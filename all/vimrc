@@ -186,3 +186,9 @@
   vmap D y'>p
 
   autocmd BufRead *.markdown,*.md,*.mdown,*.mkd,*.mkdn set ai formatoptions=tcroqn2 comments=n:>
+
+" ignore cache directory in fuzzyfinder
+  let g:fuzzy_ignore = "cache/*,_site/*,vendor/*"
+
+" closetag.vim
+  au Filetype html,xml,xsl source ~/.vim/closetag.vim

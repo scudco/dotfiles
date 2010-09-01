@@ -1,3 +1,4 @@
 tComment.vba: call delete('/Users/chad/.vim/doc/tComment.txt')|call delete('/Users/chad/.vim/plugin/tComment.vim')|call delete('/Users/chad/.vim/autoload/tcomment.vim')
 Align.vba: call delete('/Users/scudco/.vim/plugin/AlignPlugin.vim')|call delete('/Users/scudco/.vim/plugin/AlignMapsPlugin.vim')|call delete('/Users/scudco/.vim/plugin/cecutil.vim')|call delete('/Users/scudco/.vim/doc/Align.txt')|call delete('/Users/scudco/.vim/autoload/Align.vim')|call delete('/Users/scudco/.vim/autoload/AlignMaps.vim')
 cecutil.vba: call delete('/Users/scudco/.vim/plugin/cecutil.vim')|call delete('/Users/scudco/.vim/doc/cecutil.txt')
+histwin.vba: call delete('/Users/scudco/.vim/plugin/histwinPlugin.vim')|call delete('/Users/scudco/.vim/autoload/histwin.vim')|call delete('/Users/scudco/.vim/doc/histwin.txt')

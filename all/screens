@@ -1,4 +1,3 @@
 source $HOME/.screenrc
-screen -t bash 0
-screen -t ip
-screen -t ip
+screen -t zsh 0
+screen

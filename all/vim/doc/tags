@@ -57,6 +57,7 @@
 :NERDTree	NERD_tree.txt	/*:NERDTree*
 :NERDTreeFromBookmark	NERD_tree.txt	/*:NERDTreeFromBookmark*
 :NERDTreeToggle	NERD_tree.txt	/*:NERDTreeToggle*
+:UB	histwin.txt	/*:UB*
 Align-copyright	Align.txt	/*Align-copyright*
 CSApprox.txt	CSApprox.txt	/*CSApprox.txt*
 DocLookupInteractive	clojure.txt	/*DocLookupInteractive*
@@ -506,6 +507,17 @@ g:rails_tabstop	rails.txt	/*g:rails_tabstop*
 g:rails_url	rails.txt	/*g:rails_url*
 gi	clojure.txt	/*gi*
 gw	clojure.txt	/*gw*
+histwin-browse	histwin.txt	/*histwin-browse*
+histwin-color	histwin.txt	/*histwin-color*
+histwin-config	histwin.txt	/*histwin-config*
+histwin-contents	histwin.txt	/*histwin-contents*
+histwin-copyright	histwin.txt	/*histwin-copyright*
+histwin-feedback	histwin.txt	/*histwin-feedback*
+histwin-history	histwin.txt	/*histwin-history*
+histwin-keys	histwin.txt	/*histwin-keys*
+histwin-plugin	histwin.txt	/*histwin-plugin*
+histwin-var	histwin.txt	/*histwin-var*
+histwin.txt	histwin.txt	/*histwin.txt*
 i_CTRL-G_S	surround.txt	/*i_CTRL-G_S*
 i_CTRL-G_s	surround.txt	/*i_CTRL-G_s*
 ji	clojure.txt	/*ji*
