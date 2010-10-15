@@ -1,10 +1,10 @@
 require 'autotest/fsevent'
 require 'autotest/timestamp'
-require 'autotest/screen'
 require 'autotest/restart'
-require 'autotest/redgreen'
+#require 'autotest/screen'
+#require 'autotest/redgreen'
 
-Autotest::Screen.statusline = ''
+#Autotest::Screen.statusline = ''
 
 AUTOTEST_IMAGE_PATH = File.join(File.dirname(__FILE__),".autotest_images")
 
@@ -26,11 +26,11 @@ module Autotest::Growl
 
     if failed.to_i > 0
       cnt = [(9 + failed.to_i) / 10 * 10, 50].min
-      growl "Test Results", "#{output}", "#{AUTOTEST_IMAGE_PATH}/fail#{cnt}.png"
+      growl "Test Results", "#{output}", "#{AUTOTEST_IMAGE_PATH}/ruby_red.png"
     elsif pending.to_i > 0
-      growl "Test Results", "#{output}", "#{AUTOTEST_IMAGE_PATH}/pass.png"
+      growl "Test Results", "#{output}", "#{AUTOTEST_IMAGE_PATH}/ruby_yellow.png"
     else
-      growl "Test Results", "#{output}", "#{AUTOTEST_IMAGE_PATH}/pass.png"
+      growl "Test Results", "#{output}", "#{AUTOTEST_IMAGE_PATH}/ruby_green.png"
     end
   end
 end

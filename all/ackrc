@@ -4,7 +4,8 @@ less -r
 ruby=.haml
 --type-add
 css=.sass
+--type-add
+css=.scss
 --ruby
 --css
 --js
-

@@ -26,9 +26,9 @@ git_prompt_info() {
 }
 setopt prompt_subst
 PROMPT='
-%(?..[%?])%j %{$fg[green]%}%t%{$fg[blue]%} %~ %{$fg[blue]%} %E
-%{$reset_color%}%# '
-RPROMPT='%{$fg_bold[green]%}$(git_prompt_info)%{$reset_color%}'
+%{$reset_color%}%{$fg_bold[magenta]%}%~ %{$fg_bold[yellow]%}$(git_prompt_info)%{$reset_color%} %E
+%{$fg_bold[yellow]%}↳  '
+RPROMPT="%{$fg_bold[yellow]%}◴ %t%{$reset_color%}"
 export VISUAL=/usr/bin/vim
 
 function title {
@@ -94,3 +94,22 @@ alias ip_itd2='mysql -uroot -e '\''drop database insiderpages_test2; create data
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 
 source ~/.git-flow-completion.zsh
+
+# Thank you http://twistedmind.com/bundle-exec-bash-shortcut
+bundle_commands=( spec rspec cucumber cap watchr rails rackup autotest heroku )
+
+function run_bundler_cmd () {
+    if [ -e ./Gemfile ]; then
+        echo "bundle exec $@"
+        bundle exec $@
+    else
+        echo "$@"
+        $@
+    fi
+}
+
+for cmd in $bundle_commands
+do
+    alias $cmd="run_bundler_cmd $cmd"
+done
+# End thank you
