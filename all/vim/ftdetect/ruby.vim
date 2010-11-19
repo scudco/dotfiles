@@ -18,3 +18,6 @@ au BufNewFile,BufRead *.erb,*.rhtml			set filetype=eruby
 
 " Gemfile
 au BufNewFile,BufRead Gemfile,Gemfile.lock set filetype=ruby
+
+" god recipe
+au BufNewFile,BufRead *.god set filetype=ruby

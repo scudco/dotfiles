@@ -38,7 +38,7 @@
   imap <D-[> <C-O><<
 
   set lines=70
-  set columns=110
+  set columns=150
 
 " bind command-option-l to toggle line numbers
   nmap <silent> <D-M-l> :set invnumber<CR>

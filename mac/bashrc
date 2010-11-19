@@ -56,9 +56,6 @@
 # case $- in
 #   *i*) [[ -f /etc/bash_completion ]] && . /etc/bash_completion ;;
 # esac
-if [ -f /opt/local/etc/bash_completion ]; then
-  . /opt/local/etc/bash_completion
-fi
 
 if [ -d ~/.completion/ ]; then
 	for file in ~/.completion/*

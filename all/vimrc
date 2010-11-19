@@ -82,11 +82,14 @@
 	set splitbelow " Open new horizontal split windows below current
   set splitright " Open new vertical split windows to the right
 
-  " Add RebuildTagsFile function/command
+" Add RebuildTagsFile function/command
   function! s:RebuildTagsFile()
     !ctags -R --exclude=coverage --exclude=files --exclude=public --exclude=log --exclude=tmp --exclude=vendor *
   endfunction
   command! -nargs=0 RebuildTagsFile call s:RebuildTagsFile()
+
+" TagList ctags
+  let Tlist_Ctags_Cmd='/usr/local/bin/ctags'
 
 " Run file with...
   nmap <leader>st :Shell ruby %<CR>
@@ -174,7 +177,7 @@
   autocmd ColorScheme * highlight LineLengthError ctermfg=red guifg=red
 
 " Fuck whitespace
-  autocmd FileType c,cpp,java,php,ruby,eruby,python,html,css,javascript autocmd BufWritePre <buffer> :call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))
+  autocmd FileType c,cpp,java,php,ruby,eruby,haml,sass,python,html,css,javascript autocmd BufWritePre <buffer> :call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))
 
 " Add pathogen dependencies because mixed up stuff is mixed up
   call pathogen#runtime_append_all_bundles()
