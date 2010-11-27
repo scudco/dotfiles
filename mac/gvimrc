@@ -4,6 +4,7 @@
   set guioptions=c
   set guioptions-=T
   set guioptions-=m
+  set guifont=Monaco:h12
 
 " fullscreen maximizes vertically AND horizontally
   set fuoptions=maxvert,maxhorz

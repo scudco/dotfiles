@@ -67,7 +67,6 @@ chatnets = {
 
 channels = (
   { name = "#ruby-lang"; chatnet = "freenode"; autojoin = "Yes"; },
-  { name = "#taza"; chatnet = "freenode"; autojoin = "Yes"; },
   { name = "#rspec"; chatnet = "freenode"; autojoin = "Yes"; },
   { name = "#mises"; chatnet = "freenode"; autojoin = "Yes"; }
 );

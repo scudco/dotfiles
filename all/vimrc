@@ -195,3 +195,6 @@
 
 " closetag.vim
   au Filetype html,xml,xsl source ~/.vim/closetag.vim
+
+" par - paragraph formatter
+  set formatprg=par

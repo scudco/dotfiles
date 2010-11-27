@@ -73,23 +73,10 @@ alias visor='ss visor -c ~/.visor_screens'
 alias inbox='cd ~/inbox'
 alias node-repl="rlwrap node-repl"
 define() { wn $* -over; }
+alias gvim='mvim'
 
 #ruby
-alias speco='spec -O spec/spec.opts'
-alias gemi='sudo gem install --no-ri --no-rdoc'
 alias r='rails'
-
-#insider_pages aliases
-alias ip='cd ~/projects/insider_pages/insiderpages'
-alias ip_app='ssh -t adam@access.insiderpages.com'
-alias ip_app1='ip_app ssh -t app1 sudo su - ip'
-alias ip_app2='ip_app ssh -t app2 sudo su - ip'
-alias ip_s='echo > log/development.log; script/server'
-alias ip_log='ip; tail -f log/development.log'
-alias ip_clog='ip; echo > log/development.log; tail -f log/development.log'
-alias ip_idd='mysql -uroot -e '\''drop database insiderpages_development; create database insiderpages_development'\''; rake db:migrate RAILS_ENV=development --trace; rake spec:db:fixtures:load'
-alias ip_itd='mysql -uroot -e '\''drop database insiderpages_test; create database insiderpages_test'\''; rake db:migrate RAILS_ENV=test --trace'
-alias ip_itd2='mysql -uroot -e '\''drop database insiderpages_test2; create database insiderpages_test2'\''; rake db:migrate RAILS_ENV=test TEST_ENV_NUMBER=2 --trace;'
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 
@@ -113,3 +100,10 @@ do
     alias $cmd="run_bundler_cmd $cmd"
 done
 # End thank you
+
+# Ruby Enterprise Edition Settings
+export RUBY_HEAP_MIN_SLOTS=3000000
+export RUBY_HEAP_SLOTS_INCREMENT=1000000
+export RUBY_HEAP_SLOTS_GROWTH_FACTOR=1
+export RUBY_GC_MALLOC_LIMIT=1000000000
+export RUBY_HEAP_FREE_MIN=500000
